@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    # Means we are going to be pointing to nginx, not load balancer
+    kubernetes.io/ingress.class: "nginx"
+    # Should be the same name is in the letsecnrypt-staging-issuer.yaml file.
+    cert-manager.io/issuer: "ca-issuer"
+  name: my-ingress
+  namespace: default
+spec:
+  rules:
+    - host: kube-drupal.checksgo.com
+      http:
+        paths:
+          - backend:
+              serviceName: my-first-vanilla-drupal
+              servicePort: 80
+            path: /
+    - host: kube-jenkins.checksgo.com
+      http:
+        paths:
+          - backend:
+              serviceName: jenkins
+              servicePort: 8080
+            path: /
+  tls:
+    - hosts:
+        - "kube-jenkins.checksgo.com"
+        - "kube-drupal.checksgo.com"
+      secretName: my-https-secret
