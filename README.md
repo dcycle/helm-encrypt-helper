@@ -1,5 +1,7 @@
-Helm encrypt helper
+Helm encrypt helper (deprecated)
 =====
+
+**Deprecated in favor of [Dcycle Kube Helper](https://github.com/dcycle/dcycle-kube-helper)**
 
 Helps with setting up an Nginx proxy ingress and letsencrypt certificates on Kubernetes.
 
